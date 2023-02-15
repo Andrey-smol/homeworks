@@ -49,8 +49,7 @@ public class UserGUI  extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-
-        //this.stage = stage;
+        
         GridPane root = new GridPane();
 
         root.setPadding(new Insets(20));
