@@ -64,8 +64,6 @@ public class Program extends Thread{
         while(!stopThread){
 
             try {
-                //this.sleep(10);
-                //System.out.println("PROG Hello");
                 String com = sharedResource.readCommand();
                 System.out.println("PROG " + com);
                 sharedResource.writeDataBuf(parseCommand(com));
