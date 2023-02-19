@@ -5,9 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import ru.avalon.javapp.devj140.userGUI.BusinessLogic.CommandsName;
 import ru.avalon.javapp.devj140.userGUI.BusinessLogic.SharedResource;
 import ru.avalon.javapp.devj140.userGUI.Models.Person;
@@ -35,7 +33,7 @@ public class ClientGUI extends Stage {
             mess.showAndWait();
             return;
         }
-        getCountDomain();
+        //getCountDomain();
         items = setItems();
 
         ObservableList<Item> obList = FXCollections.observableList(items);
@@ -82,17 +80,13 @@ public class ClientGUI extends Stage {
         setScene(scene);
         setTitle("Persons");
 
-//        initModality(Modality.WINDOW_MODAL);
-//        initOwner(getWindows().get(0));
-//        showAndWait();
-
         Stage stage = (Stage) getWindows().get(0);// Stage.getWindows().stream().filter(Window::isShowing).findFirst().get();
         stage.close();
         show();
     }
 
     private boolean getTablePerson(){
-        sharedResource.writeCommand(CommandsName.GET_TABLE_PERSONS);
+        sharedResource.writeCommand(CommandsName.GET_PERSONS_WITH_DOMAINS);// GET_TABLE_PERSONS);
         try {
             List<?> list = sharedResource.readDataBuf();
             if(list.size() > 0 && list.get(0) instanceof Person) {
@@ -113,21 +107,21 @@ public class ClientGUI extends Stage {
                 for (Person p : persons) {
                     sharedResource.writeCommand(CommandsName.GET_COUNT_RECORDS_ID + "<domains>,<" + p.getId() + ">");
                     dat = (Integer) sharedResource.readDataBuf().get(0);
+
                     countRecords.add(dat);
-                    //System.out.println(dat);
+                    System.out.println(dat);
                 }
             }
         }
-        catch (InterruptedException e){
-
-        }
+        catch (InterruptedException e){}
     }
 
     private List<Item> setItems(){
         List<Item> item = new ArrayList<>();
         int i = 0;
         for (Person p: persons) {
-            item.add(new Item(p.getId(), p.getJobTitle(), p.getFirstNameLastName(), p.getPhone(), p.getEmail(), countRecords.get(i++)));
+            //item.add(new Item(p.getId(), p.getJobTitle(), p.getFirstNameLastName(), p.getPhone(), p.getEmail(), countRecords.get(i++)));
+            item.add(new Item(p.getId(), p.getJobTitle(), p.getFirstNameLastName(), p.getPhone(), p.getEmail(), p.getDomains().size()));
         }
         return item;
     }

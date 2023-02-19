@@ -141,6 +141,15 @@ public class Program extends Thread{
                 return domains;
             }
         }
+        else if(com.indexOf(CommandsName.GET_PERSONS_WITH_DOMAINS, 0) == 0){
+            List<Person> personList = dbServer.getPersonsWithDomains();
+            if(personList == null){
+                List<String> error = new ArrayList<>();
+                error.add("ERROR read dat");
+                return error;
+            }
+            return personList;
+        }
         else if (com.indexOf(CommandsName.STOP, 0) == 0) {
             dbServer = null;
             stopThread = true;

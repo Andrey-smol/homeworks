@@ -17,5 +17,5 @@ public interface IDbServer extends AutoCloseable{
 
     List<Domain> getDomain(int personId);
 
-
+    List<Person> getPersonsWithDomains();
 }
