@@ -17,7 +17,7 @@ import java.util.List;
 
 public class ClientGUI extends Stage {
 
-    private SharedResource sharedResource;
+    private final SharedResource sharedResource;
     private List<Person> persons = new ArrayList<>();
     List<Integer> countRecords = new ArrayList<>();
     List<Item> items = new ArrayList<>();
@@ -114,7 +114,7 @@ public class ClientGUI extends Stage {
                     sharedResource.writeCommand(CommandsName.GET_COUNT_RECORDS_ID + "<domains>,<" + p.getId() + ">");
                     dat = (Integer) sharedResource.readDataBuf().get(0);
                     countRecords.add(dat);
-                    System.out.println(dat);
+                    //System.out.println(dat);
                 }
             }
         }

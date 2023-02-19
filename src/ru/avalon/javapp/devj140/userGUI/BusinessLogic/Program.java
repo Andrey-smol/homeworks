@@ -65,7 +65,7 @@ public class Program extends Thread{
 
             try {
                 String com = sharedResource.readCommand();
-                System.out.println("PROG " + com);
+                //System.out.println("PROG " + com);
                 sharedResource.writeDataBuf(parseCommand(com));
             }
             catch (InterruptedException e){
