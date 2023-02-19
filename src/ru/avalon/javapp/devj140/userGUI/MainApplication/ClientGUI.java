@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import ru.avalon.javapp.devj140.userGUI.BusinessLogic.CommandsName;
 import ru.avalon.javapp.devj140.userGUI.BusinessLogic.SharedResource;
 import ru.avalon.javapp.devj140.userGUI.Models.Person;
@@ -28,6 +29,7 @@ public class ClientGUI extends Stage {
     }
 
     public void init(){
+
         if(!getTablePerson()){
             Alert mess = new Alert(Alert.AlertType.WARNING, message, ButtonType.OK);
             mess.showAndWait();
@@ -80,9 +82,13 @@ public class ClientGUI extends Stage {
         setScene(scene);
         setTitle("Persons");
 
-        initModality(Modality.WINDOW_MODAL);
-        initOwner(getWindows().get(0));
-        showAndWait();
+//        initModality(Modality.WINDOW_MODAL);
+//        initOwner(getWindows().get(0));
+//        showAndWait();
+
+        Stage stage = (Stage) getWindows().get(0);// Stage.getWindows().stream().filter(Window::isShowing).findFirst().get();
+        stage.close();
+        show();
     }
 
     private boolean getTablePerson(){

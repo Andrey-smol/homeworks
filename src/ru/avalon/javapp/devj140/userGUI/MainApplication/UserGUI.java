@@ -15,6 +15,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import ru.avalon.javapp.devj140.userGUI.BusinessLogic.CommandsName;
 import ru.avalon.javapp.devj140.userGUI.BusinessLogic.Program;
 import ru.avalon.javapp.devj140.userGUI.BusinessLogic.SharedResource;
@@ -32,6 +33,7 @@ public class UserGUI  extends Application {
     private SharedResource sharedResource = new SharedResource();
     private List<String> buf = new ArrayList<>();
     private Timer timer;
+    private Stage stage;
 
     public static void main(String[] args){
         launch(args);
@@ -46,6 +48,7 @@ public class UserGUI  extends Application {
     @Override
     public void start(Stage stage) {
 
+        this.stage = stage;
         GridPane root = new GridPane();
         message = new Text();
         timer = new Timer(10000, evt->processTimer());
@@ -111,7 +114,7 @@ public class UserGUI  extends Application {
                 buf.stream().forEach(System.out::println);
                 String res = buf.get(0);
                 if(res.equals("OK")){
-                    setMessage("Аутенфикация прошла успешно", Message.OK);
+                    //setMessage("Аутенфикация прошла успешно", Message.OK);
                     new ClientGUI(sharedResource).init();
                     return;
                 }
