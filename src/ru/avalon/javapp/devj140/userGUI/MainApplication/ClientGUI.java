@@ -82,6 +82,7 @@ public class ClientGUI extends Stage {
 
         Stage stage = (Stage) getWindows().get(0);// Stage.getWindows().stream().filter(Window::isShowing).findFirst().get();
         stage.close();
+        setOnCloseRequest(e->sharedResource.writeCommand(CommandsName.STOP));
         show();
     }
 
