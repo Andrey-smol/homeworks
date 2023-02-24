@@ -44,7 +44,7 @@ public class FXMLClientGUIController implements Initializable {
         if(event.getClickCount() == 2){
             Item item = table.getSelectionModel().getSelectedItem();
 
-            if(item != null) new DomainGUI(Common.sharedResource).init(item.getId());
+            if(item != null) new DomainGUI(item.getId()).init();
         }
     }
 

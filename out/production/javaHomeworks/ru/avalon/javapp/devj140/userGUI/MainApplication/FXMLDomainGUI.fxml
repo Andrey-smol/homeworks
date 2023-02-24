@@ -6,12 +6,27 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="ru.avalon.javapp.devj140.userGUI.MainApplication.FXMLDomainGUIController"
-            prefHeight="400.0" prefWidth="600.0">
-    <TableView>
-
+<?import javafx.geometry.Insets?>
+<HBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="ru.avalon.javapp.devj140.userGUI.MainApplication.FXMLDomainGUIController"
+      prefHeight="400.0" prefWidth="600.0">
+    <padding>
+        <Insets topRightBottomLeft="10"/>
+    </padding>
+    <TableView fx:id="table">
+        <columns>
+            <TableColumn fx:id="idColumn"  text="Id" />
+            <TableColumn fx:id="webColumn"  text="WebName" />
+            <TableColumn fx:id="nameColumn"  text="DomainName" />
+            <TableColumn fx:id="ipColumn"  text="Ip" />
+            <TableColumn fx:id="dateRegColumn"  text="DateReg" />
+            <TableColumn fx:id="countryColumn"  text="CountryReg" />
+            <TableColumn fx:id="personIdColumn"  text="PersonId" />
+        </columns>
+        <HBox.hgrow>
+            <Priority fx:constant="ALWAYS"/>
+        </HBox.hgrow>
     </TableView>
 
-</AnchorPane>
+</HBox>
