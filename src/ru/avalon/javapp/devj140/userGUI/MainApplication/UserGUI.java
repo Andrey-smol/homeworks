@@ -1,5 +1,6 @@
 package ru.avalon.javapp.devj140.userGUI.MainApplication;
 
+import com.mysql.cj.protocol.Message;
 import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -10,31 +11,29 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import ru.avalon.javapp.devj140.userGUI.BusinessLogic.CommandsName;
 import ru.avalon.javapp.devj140.userGUI.BusinessLogic.Program;
 import ru.avalon.javapp.devj140.userGUI.BusinessLogic.SharedResource;
 
-import java.io.IOException;
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserGUI  extends Application {
 
-
-    TextField userNameText;
-    PasswordField userPasswordText;
-    Text message;
-    Program program;
-    SharedResource sharedResource = new SharedResource();
-    List<String> buf = new ArrayList<>();
-    Stage stage;
+    private TextField userNameText;
+    private PasswordField userPasswordText;
+    private Text message;
+    private Program program;
+    private SharedResource sharedResource = new SharedResource();
+    private List<String> buf = new ArrayList<>();
+    private Timer timer;
+    private Stage stage;
 
     public static void main(String[] args){
         launch(args);
@@ -47,57 +46,47 @@ public class UserGUI  extends Application {
     }
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
 
-
-        //this.stage = stage;
+        this.stage = stage;
         GridPane root = new GridPane();
+        message = new Text();
+        timer = new Timer(10000, evt->processTimer());
 
         root.setPadding(new Insets(20));
         root.setHgap(25);
         root.setVgap(15);
 
-        Label labelTitle = new Label("Enter your user name and password!");
+        Label labelTitle = new Label("Welcome!");
         labelTitle.setFont(new Font(20));
-
-        // Put on cell (0,0), span 2 column, 1 row.
         root.add(labelTitle, 0, 0, 2, 1);
-
         Label labelUserName = new Label("User Name");
         userNameText = new TextField();
+        userNameText.textProperty().addListener(e -> message.setText(""));
 
         Label labelPassword = new Label("User Password");
-
         userPasswordText = new PasswordField();
+        userPasswordText.textProperty().addListener(e -> message.setText(""));
 
         Button signIn = new Button("Sign in");
         signIn.setOnAction(e->checkUser());
 
         GridPane.setHalignment(labelUserName, HPos.RIGHT);
-
-        // Put on cell (0,1)
         root.add(labelUserName, 0, 1);
-
 
         GridPane.setHalignment(labelPassword, HPos.RIGHT);
         root.add(labelPassword, 0, 2);
 
-        // Horizontal alignment for User Name field.
         GridPane.setHalignment(userNameText, HPos.LEFT);
         root.add(userNameText, 1, 1);
 
-        // Horizontal alignment for Password field.
         GridPane.setHalignment(userPasswordText, HPos.LEFT);
         root.add(userPasswordText, 1, 2);
 
-        // Horizontal alignment for Login button.
         GridPane.setHalignment(signIn, HPos.RIGHT);
         root.add(signIn, 1, 3);
 
-        message = new Text();
-        root.add(message, 1, 5);
-
-
+        root.add(message, 0, 5, 2, 1);
         root.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(root, 600, 300);
@@ -108,14 +97,15 @@ public class UserGUI  extends Application {
 
     private void checkUser(){
         if(userNameText == null || userNameText.getText().isEmpty()) {
-            message.setText("Не определено поле имя");
+            setMessage("Не определено поле имя", Message.ERROR);
             return;
         }
         if(userPasswordText == null || userPasswordText.getText().isEmpty()) {
-            message.setText("Не определено поле пароль");
+            setMessage("Не определено поле пароль", Message.ERROR);
             return;
         }
-        message.setText("Подключение к базе данных");
+        //setTimeout(10000);
+        setMessage("Подключение к базе данных", Message.OK);
         sharedResource.writeCommand(CommandsName.CHECK_USER + " <" + userNameText.getText() + ">,<" + userPasswordText.getText() + ">");
         try {
             buf = (List<String>) sharedResource.readDataBuf();
@@ -124,22 +114,46 @@ public class UserGUI  extends Application {
                 buf.stream().forEach(System.out::println);
                 String res = buf.get(0);
                 if(res.equals("OK")){
-                    message.setText("OK");
+                    //setMessage("Аутенфикация прошла успешно", Message.OK);
                     new ClientGUI(sharedResource).init();
-
                     return;
                 }
                 else message.setText(res);
             }
-            message.setText("ERROR authentication");
+            setMessage("Не удалось пройти аутенфикацию", Message.ERROR);
         }
         catch (InterruptedException e){
-
+            setMessage("Не удалось пройти аутенфикацию", Message.ERROR);
         }
     }
 
+    private void setMessage(String mess, Message value){
+        SwingUtilities.invokeLater(()-> {
+            message.setText(mess);
+            if (value == Message.ERROR) message.setFill(Color.RED);
+            if (value == Message.WARNING) message.setFill(Color.YELLOW);
+        });
+    }
+
+    private void processTimer(){
+        timer.stop();
+    }
+    private void restartTimer(){
+        timer.restart();
+    }
+    private void setTimeout(int value){
+        timer.setDelay(value);
+        timer.start();
+    }
+
     @Override
-    public void stop() throws Exception {
+    public void stop() {
         sharedResource.writeCommand(CommandsName.STOP);
+    }
+
+    enum Message {
+        ERROR,
+        WARNING,
+        OK
     }
 }

@@ -64,10 +64,8 @@ public class Program extends Thread{
         while(!stopThread){
 
             try {
-                //this.sleep(10);
-                //System.out.println("PROG Hello");
                 String com = sharedResource.readCommand();
-                System.out.println("PROG " + com);
+                //System.out.println("PROG " + com);
                 sharedResource.writeDataBuf(parseCommand(com));
             }
             catch (InterruptedException e){
@@ -142,6 +140,15 @@ public class Program extends Thread{
                 }
                 return domains;
             }
+        }
+        else if(com.indexOf(CommandsName.GET_PERSONS_WITH_DOMAINS, 0) == 0){
+            List<Person> personList = dbServer.getPersonsWithDomains();
+            if(personList == null){
+                List<String> error = new ArrayList<>();
+                error.add("ERROR read dat");
+                return error;
+            }
+            return personList;
         }
         else if (com.indexOf(CommandsName.STOP, 0) == 0) {
             dbServer = null;

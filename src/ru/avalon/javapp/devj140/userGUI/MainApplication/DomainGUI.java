@@ -80,5 +80,4 @@ public class DomainGUI extends Stage {
         }
         return false;
     }
-
 }

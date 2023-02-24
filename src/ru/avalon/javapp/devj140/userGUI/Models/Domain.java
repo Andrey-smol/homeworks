@@ -12,6 +12,7 @@ public class Domain {
     private Date dateReg;
     private String countryReg;
     private int personId;
+    private Person person;
 
 
     public Domain(int id, String webName, String domainName, String ip, Date dateReg, String countryReg, int personId) {
@@ -72,6 +73,13 @@ public class Domain {
         return personId;
     }
 
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
 
     @Override
     public String toString() {

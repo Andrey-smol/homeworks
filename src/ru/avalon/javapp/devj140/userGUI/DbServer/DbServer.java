@@ -111,6 +111,34 @@ public class DbServer implements IDbServer{
     }
 
     @Override
+    public List<Person> getPersonsWithDomains() {
+        try(Connection connection = DriverManager.getConnection(url, login, password)){
+            try(Statement st = connection.createStatement();
+                ResultSet rs = st.executeQuery("SELECT * FROM Person left JOIN Domains on Person.id = Domains.personid")){
+                List<Person> personList = new ArrayList<>();
+                while(rs.next()){
+                    int id = rs.getInt(1);
+                    Person person = personList.stream().filter(p -> p.getId() == id).findFirst().orElse(null);
+                    if(person == null){
+                        person = new Person(id, rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
+                        personList.add(person);
+                    }
+                    if(rs.getString(7) != null) {
+                        Domain domain = new Domain(rs.getInt(6), rs.getString(7), rs.getString(8),
+                                rs.getString(9), rs.getDate(10), rs.getString(11), rs.getInt(12));
+                        person.addDomain(domain);
+                    }
+                }
+                return personList;
+            }
+        }
+        catch (SQLException e){
+
+        }
+        return null;
+    }
+
+    @Override
     public void close() throws Exception {
 
     }
