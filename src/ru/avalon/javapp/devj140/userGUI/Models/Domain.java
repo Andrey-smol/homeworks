@@ -25,26 +25,6 @@ public class Domain {
         this.personId = personId;
     }
 
-    public static String[] getNameColumns(){
-        return new String[]{"Id", "WebName", "DomainName", "Ip", "DateReg", "CountryReg", "PersonId"};
-    }
-
-    public static String[] getNameVariable(){
-        return new String[] {"id", "webName", "domainName", "ip", "dateReg", "countryReg", "personId"};
-    }
-
-    public List<Class<?>> getClassVariable(){
-        List<Class<?>> listClass = new ArrayList<>();
-        listClass.add(Integer.valueOf(id).getClass());
-        listClass.add(webName.getClass());
-        listClass.add(domainName.getClass());
-        listClass.add(ip.getClass());
-        listClass.add(dateReg.getClass());
-        listClass.add(countryReg.getClass());
-        listClass.add(Integer.valueOf(personId).getClass());
-        return listClass;
-    }
-
     public Integer getId() {
         return id;
     }

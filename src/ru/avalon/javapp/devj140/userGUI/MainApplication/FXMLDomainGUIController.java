@@ -6,13 +6,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import ru.avalon.javapp.devj140.userGUI.BusinessLogic.CommandsName;
 import ru.avalon.javapp.devj140.userGUI.Models.Domain;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +21,6 @@ public class FXMLDomainGUIController implements Initializable {
     @FXML
     private TableView<Domain> table;
     private String message = "";
-
-    private String[] nameVariables;
 
     private List<Domain> item = new ArrayList<>();
 
@@ -37,9 +33,30 @@ public class FXMLDomainGUIController implements Initializable {
         }
         ObservableList<Domain> obList = FXCollections.observableList(item);
         table.getColumns().forEach(column->{
-            int i = 0;
-            if(i < nameVariables.length)
-                column.setCellValueFactory(new PropertyValueFactory<>(nameVariables[i++]));
+            String str = column.getText();
+            switch (str){
+                case "Id":
+                    column.setCellValueFactory(new PropertyValueFactory<>("id"));
+                    break;
+                case "WebName":
+                    column.setCellValueFactory(new PropertyValueFactory<>("webName"));
+                    break;
+                case "DomainName":
+                    column.setCellValueFactory(new PropertyValueFactory<>("domainName"));
+                    break;
+                case "Ip":
+                    column.setCellValueFactory(new PropertyValueFactory<>("ip"));
+                    break;
+                case "DateReg":
+                    column.setCellValueFactory(new PropertyValueFactory<>("dateReg"));
+                    break;
+                case "CountryReg":
+                    column.setCellValueFactory(new PropertyValueFactory<>("countryReg"));
+                    break;
+                case "PersonId":
+                    column.setCellValueFactory(new PropertyValueFactory<>("personId"));
+                    break;
+            }
         });
         table.setItems(obList);
     }
@@ -51,7 +68,6 @@ public class FXMLDomainGUIController implements Initializable {
             List<?> list = Common.sharedResource.readDataBuf();
             if(list.size() > 0 && list.get(0) instanceof Domain){
                 item = (List<Domain>) list;
-                nameVariables = Domain.getNameVariable();
                 return true;
             }
             message = list.get(0).toString();
