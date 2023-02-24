@@ -30,9 +30,6 @@ public class FXMLUserGUIController implements Initializable {
 
     private List<String> buf;
 
-    private SharedResource sharedResource;
-    private Program program;
-
     @FXML
     private void checkUser(){
         if(userNameText == null || userNameText.getText().isEmpty()) {
@@ -65,17 +62,16 @@ public class FXMLUserGUIController implements Initializable {
     }
 
     public void connectToDb(){
-        //UserGUI userGUI = new UserGUI();
-         sharedResource.writeCommand(CommandsName.CHECK_USER + " <" + userNameText.getText() + ">,<" + userPasswordText.getText() + ">");
+         Common.sharedResource.writeCommand(CommandsName.CHECK_USER + " <" + userNameText.getText() + ">,<" + userPasswordText.getText() + ">");
         try {
-            buf = (List<String>) sharedResource.readDataBuf();
+            buf = (List<String>) Common.sharedResource.readDataBuf();
 
             if(buf.size() > 0) {
                 buf.stream().forEach(System.out::println);
                 String res = buf.get(0);
                 if(res.equals("OK")){
                     //setMessage("Аутенфикация прошла успешно", Message.OK);
-                    new ClientGUI(sharedResource).init();
+                    new ClientGUI().init();
                     return;
                 }
                 else message.setText(res);
@@ -89,12 +85,8 @@ public class FXMLUserGUIController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        sharedResource = new SharedResource();
         buf = new ArrayList<>();
-        program = new Program(sharedResource);
+        new Program(Common.sharedResource);
     }
 
-    public SharedResource getSharedResource() {
-        return sharedResource;
-    }
 }
