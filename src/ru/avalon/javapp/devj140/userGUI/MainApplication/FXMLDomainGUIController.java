@@ -25,40 +25,26 @@ public class FXMLDomainGUIController implements Initializable {
     private List<Domain> item = new ArrayList<>();
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) throws IllegalArgumentException{
-        if(!getDomainById(DomainGUI.PERSONID)){
+    public void initialize(URL url, ResourceBundle resourceBundle){
+
+        table.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("id"));
+        table.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("webName"));
+        table.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("domainName"));
+        table.getColumns().get(3).setCellValueFactory(new PropertyValueFactory<>("ip"));
+        table.getColumns().get(4).setCellValueFactory(new PropertyValueFactory<>("dateReg"));
+        table.getColumns().get(5).setCellValueFactory(new PropertyValueFactory<>("countryReg"));
+        table.getColumns().get(6).setCellValueFactory(new PropertyValueFactory<>("personId"));
+    }
+
+    public boolean initTable(int personId){
+        if(!getDomainById(personId)){
             Alert mess = new Alert(Alert.AlertType.WARNING, message, ButtonType.OK);
             mess.showAndWait();
-            throw new IllegalArgumentException("");
+            return false;
         }
         ObservableList<Domain> obList = FXCollections.observableList(item);
-        table.getColumns().forEach(column->{
-            String str = column.getText();
-            switch (str){
-                case "Id":
-                    column.setCellValueFactory(new PropertyValueFactory<>("id"));
-                    break;
-                case "WebName":
-                    column.setCellValueFactory(new PropertyValueFactory<>("webName"));
-                    break;
-                case "DomainName":
-                    column.setCellValueFactory(new PropertyValueFactory<>("domainName"));
-                    break;
-                case "Ip":
-                    column.setCellValueFactory(new PropertyValueFactory<>("ip"));
-                    break;
-                case "DateReg":
-                    column.setCellValueFactory(new PropertyValueFactory<>("dateReg"));
-                    break;
-                case "CountryReg":
-                    column.setCellValueFactory(new PropertyValueFactory<>("countryReg"));
-                    break;
-                case "PersonId":
-                    column.setCellValueFactory(new PropertyValueFactory<>("personId"));
-                    break;
-            }
-        });
         table.setItems(obList);
+        return true;
     }
 
     private boolean getDomainById(int id){
@@ -66,7 +52,7 @@ public class FXMLDomainGUIController implements Initializable {
         Common.sharedResource.writeCommand(CommandsName.GET_TABLE_DOMAIN_ID + "<" + id + ">");
         try {
             List<?> list = Common.sharedResource.readDataBuf();
-            if(list.size() > 0 && list.get(0) instanceof Domain){
+            if(list.size() > 0 && (list.get(0) instanceof Domain)){
                 item = (List<Domain>) list;
                 return true;
             }
