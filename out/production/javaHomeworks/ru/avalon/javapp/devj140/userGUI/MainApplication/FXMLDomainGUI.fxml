@@ -7,15 +7,21 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<HBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="ru.avalon.javapp.devj140.userGUI.MainApplication.FXMLDomainGUIController"
-      prefHeight="400.0" prefWidth="600.0">
-    <padding>
-        <Insets topRightBottomLeft="10"/>
-    </padding>
+<?import java.net.URL?>
+<VBox
+        xmlns="http://javafx.com/javafx"
+        xmlns:fx="http://javafx.com/fxml"
+        fx:controller="ru.avalon.javapp.devj140.userGUI.MainApplication.FXMLDomainGUIController">
     <children>
-        <TableView fx:id="table">
+        <MenuBar id="menuBar">
+            <Menu id="menuFile" text="File">
+                <MenuItem text="Close" onAction="#close"/>
+            </Menu>
+            <Menu id="menuView"  text="View">
+                <MenuItem id="menuChange" text="Change Style" onAction="#changeStyle"/>
+            </Menu>
+        </MenuBar>
+        <TableView id="tableDomain" fx:id="table">
             <columns>
                 <TableColumn fx:id="idColumn"  text="Id" />
                 <TableColumn fx:id="webColumn"  text="WebName" />
@@ -25,9 +31,8 @@
                 <TableColumn fx:id="countryColumn"  text="CountryReg" />
                 <TableColumn fx:id="personIdColumn"  text="PersonId" />
             </columns>
-            <HBox.hgrow>
-                <Priority fx:constant="ALWAYS"/>
-            </HBox.hgrow>
+
         </TableView>
     </children>
-</HBox>
+
+</VBox>

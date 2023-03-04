@@ -7,27 +7,28 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
+<?import java.net.URL?>
 <HBox
-            id="AnchorPane"
+            id="tableHbox"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="ru.avalon.javapp.devj140.userGUI.MainApplication.FXMLClientGUIController"
-            prefHeight="600.0" prefWidth="800.0">
-    <padding>
-        <Insets topRightBottomLeft="10"/>
-    </padding>
+            fx:controller="ru.avalon.javapp.devj140.userGUI.MainApplication.FXMLClientGUIController">
+
     <children>
-        <TableView fx:id="table" onMouseClicked="#handlerMouseClicked">
+        <TableView id="tableClient" fx:id="table" onMouseClicked="#handlerMouseClicked">
             <columns>
-                <TableColumn fx:id="idColumn"  text="Id" />
-                <TableColumn fx:id="jobColumn"  text="jobTitle" />
-                <TableColumn fx:id="nameColumn"  text="firstNameLastName" />
-                <TableColumn fx:id="phoneColumn"  text="phone" />
-                <TableColumn fx:id="emailColumn"  text="email" />
-                <TableColumn fx:id="countColumn"  text="CountDomains" />
+                <TableColumn id="column1" fx:id="idColumn"  text="Id" />
+                <TableColumn id="column2" fx:id="jobColumn"  text="jobTitle" />
+                <TableColumn id="column3" fx:id="nameColumn"  text="firstNameLastName" />
+                <TableColumn id="column4" fx:id="phoneColumn"  text="phone" />
+                <TableColumn id="column5" fx:id="emailColumn"  text="email" />
+                <TableColumn id="column6" fx:id="countColumn"  text="CountDomains" />
             </columns>
             <HBox.hgrow>
                 <Priority fx:constant="ALWAYS"/>
             </HBox.hgrow>
         </TableView>
     </children>
+    <stylesheets>
+        <URL value="@Style/styleUserGUI.css" />
+    </stylesheets>
 </HBox>

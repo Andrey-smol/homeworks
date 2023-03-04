@@ -8,13 +8,14 @@
 
 <?import javafx.scene.text.Text?>
 
-<GridPane fx:id="root" xmlns:fx="http://javafx.com/fxml/1" hgap="25" vgap="15" style="-fx-padding:20"
-          alignment="CENTER" prefHeight="300.0" prefWidth="500.0"
+<GridPane fx:id="root" xmlns:fx="http://javafx.com/fxml/1"
+
+          stylesheets="@Style/styleUserGUI.css"
           xmlns="http://javafx.com/javafx/"
           fx:controller="ru.avalon.javapp.devj140.userGUI.MainApplication.FXMLUserGUIController">
 
     <children>
-        <Label text="Welcom" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2" style="-fx-font-size:20"/>
+        <Label fx:id="welcome" text="Welcom" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2"/>
         <Label text="User Name" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
         <TextField
                 fx:id="userNameText"
@@ -37,7 +38,7 @@
                 GridPane.halignment="RIGHT"
                 onAction="#checkUser"
         />
-        <Text fx:id="message" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="5" style="-fx-font-size:15"/>
+        <Text fx:id="message" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="5"/>
     </children>
 
 </GridPane>
