@@ -51,46 +51,15 @@ HBox{
  -fx-background-color: linear-gradient(to bottom,#fff8dc,#ffe4c4);
 }
 
-TableView .table-column{
-  -fx-font-family: Arial, sana-serif;
-  -fx-font-size: 12px;
+.table-view .column-header{
+  -fx-size: 35px;
+  -fx-font-family: Modena, Arial;
+  -fx-font-size: 8px;
   -fx-font-width: bold;
 }
 
-/*.table-view .column-header,
-.table-view .column-header-background .filler {
-    -fx-background-color:  #fff8dc;
-}*/
-
-
 .table-view .column-header .label{
-   -fx-font-weight: bold;
    -fx-alignment: CENTER;
-}
-
-.table-view #column1{
-  -fx-size: 35px;
-  -fx-pref-width: 50.0;
-}
-
-.table-view #column2{
-  -fx-min-width: 100.0;
-}
-
-.table-view #column3{
-  -fx-min-width: 200px;
-}
-
-.table-view #column4{
-  -fx-min-width: 100px;
-}
-
-.table-view #column5{
-  -fx-min-width: 100px;
-}
-
-.table-view #column6{
-  -fx-min-width: 200px;
 }
 
 .table-row-cell:selected {
@@ -98,24 +67,38 @@ TableView .table-column{
    -fx-text-background-color:  #fcfcee;
 }
 
-
 VBox{
-  -fx-pref-height: 400;
-   -fx-pref-width: 600;
+  -fx-pref-height: 300;
+  -fx-pref-width: 700;
+  -fx-padding: 5px;
 }
 VBox .menu-bar{
-  -fx-pref-height: 30px;
-  -fx-padding: 10px;
+  -fx-pref-height: 25px;
+  -fx-padding: 5px;
   -fx-background-color: #d0d0d0;
-  -fx-margin:10px;
+  -fx-margin:5px;
+  -fx-use-system-menu-bar: true;
 }
-VBox .menu{
-  -fx-text-fill: red;
+VBox .menu-bar .menu{
+  -fx-underline: true;
+}
+VBox .menu-bar .menu .label, VBox .menu-bar .menu .menu-item .label{
+  -fx-font-family: Modena;
+  -fx-font-size: 14px;
+  /*-fx-text-fill: #00bfff;*/
+}
+VBox .menu-bar .menu:hover, VBox .menu-bar .menu .menu-item:hover, VBox .menu-bar .menu:active, VBox .menu-bar .menu .menu-item:active{
+  -fx-background-color: #00ced1;
+}
+VBox .table-view .table-cell{
+  -fx-text-fill: #556b2f;
+  -fx-font-size: 12px;
+  -fx-font-style: italic;
+}
+VBox .table-row-cell:selected {
+   -fx-background-color: #add8e6;
 }
 
-VBox .table-view{
-  -fx-margin: 10px;
-}
 
 
 

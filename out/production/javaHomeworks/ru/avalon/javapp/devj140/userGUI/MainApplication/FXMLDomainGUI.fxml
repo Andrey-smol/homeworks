@@ -31,7 +31,6 @@
                 <TableColumn fx:id="countryColumn"  text="CountryReg" />
                 <TableColumn fx:id="personIdColumn"  text="PersonId" />
             </columns>
-
         </TableView>
     </children>
 
