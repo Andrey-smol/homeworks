@@ -4,13 +4,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import ru.avalon.javapp.devj140.userGUI.BusinessLogic.CommandsName;
 import ru.avalon.javapp.devj140.userGUI.Models.Domain;
 
+import java.awt.event.ActionEvent;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +24,11 @@ public class FXMLDomainGUIController implements Initializable {
     @FXML
     private TableView<Domain> table;
     private String message = "";
+
+    private Scene scene;
+    private Stage stage;
+
+    private String styleMy = getClass().getResource("Style/styleUserGUI.css").toExternalForm();
 
     private List<Domain> item = new ArrayList<>();
 
@@ -62,5 +70,26 @@ public class FXMLDomainGUIController implements Initializable {
             message = "ERROR read date \n" + e.getMessage();
         }
         return false;
+    }
+
+    @FXML
+    private void close(){
+        stage.close();
+    }
+    @FXML
+    private void changeStyle(){
+        if(!scene.getStylesheets().contains(styleMy)){
+            scene.getStylesheets().clear();
+            scene.getStylesheets().add(styleMy);
+        }
+        else scene.getStylesheets().clear();
+        //System.out.println(scene.getStylesheets());
+    }
+
+    public void setScene(Scene scene) {
+        this.scene = scene;
+    }
+    public void setStage(Stage stage){
+       this.stage = stage;
     }
 }

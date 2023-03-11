@@ -28,7 +28,10 @@ public class DomainGUI extends Stage {
             setTitle("Domains");
 
             initModality(Modality.APPLICATION_MODAL);
-            if(!((FXMLDomainGUIController)loader.getController()).initTable(personId)) return;
+            FXMLDomainGUIController fdc = loader.getController();
+            if(!fdc.initTable(personId)) return;
+            fdc.setScene(scene);
+            fdc.setStage(this);
             showAndWait();
         } catch (IOException e) {
             System.out.println(e.getMessage());
