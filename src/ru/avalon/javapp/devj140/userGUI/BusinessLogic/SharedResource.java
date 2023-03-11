@@ -27,12 +27,10 @@ public class SharedResource {
      * @throws InterruptedException
      */
     public synchronized void writeDataBuf(List<?> buf) throws InterruptedException {
-        //System.out.println("writeDataBuf");
         if(dataIsReady)
             wait();
         this.buf = buf;
         dataIsReady = true;
-        //System.out.println("writeDataBuf_OK");
         notify();
     }
 
@@ -42,10 +40,8 @@ public class SharedResource {
      * @throws InterruptedException
      */
     public  synchronized List<?> readDataBuf() throws InterruptedException{
-        //System.out.println("readDataBuf");
         if(!dataIsReady)
             wait();
-        //System.out.println("readDataBuf _OK");
         return buf;
     }
     //это читает program

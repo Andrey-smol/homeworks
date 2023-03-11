@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<HBox
+            id="AnchorPane"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="ru.avalon.javapp.devj140.userGUI.MainApplication.FXMLClientGUIController"
+            prefHeight="600.0" prefWidth="800.0">
+    <padding>
+        <Insets topRightBottomLeft="10"/>
+    </padding>
+    <children>
+        <TableView fx:id="table" onMouseClicked="#handlerMouseClicked">
+            <columns>
+                <TableColumn fx:id="idColumn"  text="Id" />
+                <TableColumn fx:id="jobColumn"  text="jobTitle" />
+                <TableColumn fx:id="nameColumn"  text="firstNameLastName" />
+                <TableColumn fx:id="phoneColumn"  text="phone" />
+                <TableColumn fx:id="emailColumn"  text="email" />
+                <TableColumn fx:id="countColumn"  text="CountDomains" />
+            </columns>
+            <HBox.hgrow>
+                <Priority fx:constant="ALWAYS"/>
+            </HBox.hgrow>
+        </TableView>
+    </children>
+</HBox>
