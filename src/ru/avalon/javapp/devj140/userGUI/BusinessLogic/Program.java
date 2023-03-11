@@ -88,10 +88,10 @@ public class Program extends Thread{
                 if(us == null){
                     list.add("ERROR read Table USERS");
                 }
-                if (us.size() < 1){
+                else if (us.size() < 1){
                     list.add("ERROR Table USERS is empty");
                 }
-                if(us.get(0).getName().equals(user) && us.get(0).getPassword().equals(pass)){
+                else if(us.get(0).getName().equals(user) && us.get(0).getPassword().equals(pass)){
                     list.add("OK");
                 }
                 else list.add("ERROR user did not find");
